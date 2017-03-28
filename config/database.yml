@@ -1,0 +1,21 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: app_array_index_development
+
+test:
+  <<: *default
+  database: app_array_index_test
+
+production:
+  <<: *default
+  database: app_array_index_production
+  username: app_array_index
+  password: <%= ENV['TEST_TREE_CLOSURE_DATABASE_PASSWORD'] %>
