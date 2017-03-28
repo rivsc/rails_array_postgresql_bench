@@ -1,6 +1,7 @@
 # rails_array_postgresql_bench
 Benchmark test array postgresql index
 
+```
               user     system      total        real
 gin + @>   (76.4ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_gin_ids @> '{1500}')
    (47.6ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_gin_ids @> '{2338}')
@@ -68,3 +69,4 @@ none + ANY   (452.1ms)  SELECT COUNT(*) FROM "bidules" WHERE (1500 = ANY (liste_
    (425.8ms)  SELECT COUNT(*) FROM "bidules" WHERE (4611 = ANY (liste_none_ids))
    (420.4ms)  SELECT COUNT(*) FROM "bidules" WHERE (1747 = ANY (liste_none_ids))
   0.010000   0.000000   0.010000 (  4.249844)
+```
