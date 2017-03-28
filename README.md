@@ -1,24 +1,70 @@
-# README
+# rails_array_postgresql_bench
+Benchmark test array postgresql index
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+              user     system      total        real
+gin + @>   (76.4ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_gin_ids @> '{1500}')
+   (47.6ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_gin_ids @> '{2338}')
+   (34.6ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_gin_ids @> '{851}')
+   (35.1ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_gin_ids @> '{2676}')
+   (32.2ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_gin_ids @> '{1750}')
+   (34.9ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_gin_ids @> '{2389}')
+   (31.9ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_gin_ids @> '{2137}')
+   (35.4ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_gin_ids @> '{4634}')
+   (32.9ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_gin_ids @> '{4611}')
+   (31.6ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_gin_ids @> '{1747}')
+  0.020000   0.010000   0.030000 (  0.448629)
+btree + @>   (883.9ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_btree_ids @> '{1500}')
+   (869.1ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_btree_ids @> '{2338}')
+   (876.9ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_btree_ids @> '{851}')
+   (880.2ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_btree_ids @> '{2676}')
+   (878.9ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_btree_ids @> '{1750}')
+   (890.9ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_btree_ids @> '{2389}')
+   (880.3ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_btree_ids @> '{2137}')
+   (891.5ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_btree_ids @> '{4634}')
+   (908.3ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_btree_ids @> '{4611}')
+   (895.9ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_btree_ids @> '{1747}')
+  0.010000   0.000000   0.010000 (  8.862111)
+none + @>   (467.9ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_none_ids @> '{1500}')
+   (457.0ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_none_ids @> '{2338}')
+   (465.3ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_none_ids @> '{851}')
+   (441.2ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_none_ids @> '{2676}')
+   (450.9ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_none_ids @> '{1750}')
+   (433.0ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_none_ids @> '{2389}')
+   (445.7ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_none_ids @> '{2137}')
+   (461.0ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_none_ids @> '{4634}')
+   (439.2ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_none_ids @> '{4611}')
+   (449.0ms)  SELECT COUNT(*) FROM "bidules" WHERE (liste_none_ids @> '{1747}')
+  0.010000   0.000000   0.010000 (  4.516653)
+gin + ANY   (926.3ms)  SELECT COUNT(*) FROM "bidules" WHERE (1500 = ANY (liste_gin_ids))
+   (926.5ms)  SELECT COUNT(*) FROM "bidules" WHERE (2338 = ANY (liste_gin_ids))
+   (942.9ms)  SELECT COUNT(*) FROM "bidules" WHERE (851 = ANY (liste_gin_ids))
+   (938.4ms)  SELECT COUNT(*) FROM "bidules" WHERE (2676 = ANY (liste_gin_ids))
+   (927.0ms)  SELECT COUNT(*) FROM "bidules" WHERE (1750 = ANY (liste_gin_ids))
+   (927.4ms)  SELECT COUNT(*) FROM "bidules" WHERE (2389 = ANY (liste_gin_ids))
+   (925.3ms)  SELECT COUNT(*) FROM "bidules" WHERE (2137 = ANY (liste_gin_ids))
+   (933.1ms)  SELECT COUNT(*) FROM "bidules" WHERE (4634 = ANY (liste_gin_ids))
+   (933.4ms)  SELECT COUNT(*) FROM "bidules" WHERE (4611 = ANY (liste_gin_ids))
+   (938.5ms)  SELECT COUNT(*) FROM "bidules" WHERE (1747 = ANY (liste_gin_ids))
+  0.000000   0.000000   0.000000 (  9.325211)
+btree + ANY   (857.8ms)  SELECT COUNT(*) FROM "bidules" WHERE (1500 = ANY (liste_btree_ids))
+   (858.9ms)  SELECT COUNT(*) FROM "bidules" WHERE (2338 = ANY (liste_btree_ids))
+   (849.6ms)  SELECT COUNT(*) FROM "bidules" WHERE (851 = ANY (liste_btree_ids))
+   (858.8ms)  SELECT COUNT(*) FROM "bidules" WHERE (2676 = ANY (liste_btree_ids))
+   (859.3ms)  SELECT COUNT(*) FROM "bidules" WHERE (1750 = ANY (liste_btree_ids))
+   (875.4ms)  SELECT COUNT(*) FROM "bidules" WHERE (2389 = ANY (liste_btree_ids))
+   (877.8ms)  SELECT COUNT(*) FROM "bidules" WHERE (2137 = ANY (liste_btree_ids))
+   (858.8ms)  SELECT COUNT(*) FROM "bidules" WHERE (4634 = ANY (liste_btree_ids))
+   (856.2ms)  SELECT COUNT(*) FROM "bidules" WHERE (4611 = ANY (liste_btree_ids))
+   (849.3ms)  SELECT COUNT(*) FROM "bidules" WHERE (1747 = ANY (liste_btree_ids))
+  0.010000   0.000000   0.010000 (  8.608754)
+none + ANY   (452.1ms)  SELECT COUNT(*) FROM "bidules" WHERE (1500 = ANY (liste_none_ids))
+   (429.7ms)  SELECT COUNT(*) FROM "bidules" WHERE (2338 = ANY (liste_none_ids))
+   (420.8ms)  SELECT COUNT(*) FROM "bidules" WHERE (851 = ANY (liste_none_ids))
+   (410.3ms)  SELECT COUNT(*) FROM "bidules" WHERE (2676 = ANY (liste_none_ids))
+   (429.8ms)  SELECT COUNT(*) FROM "bidules" WHERE (1750 = ANY (liste_none_ids))
+   (412.1ms)  SELECT COUNT(*) FROM "bidules" WHERE (2389 = ANY (liste_none_ids))
+   (426.6ms)  SELECT COUNT(*) FROM "bidules" WHERE (2137 = ANY (liste_none_ids))
+   (415.3ms)  SELECT COUNT(*) FROM "bidules" WHERE (4634 = ANY (liste_none_ids))
+   (425.8ms)  SELECT COUNT(*) FROM "bidules" WHERE (4611 = ANY (liste_none_ids))
+   (420.4ms)  SELECT COUNT(*) FROM "bidules" WHERE (1747 = ANY (liste_none_ids))
+  0.010000   0.000000   0.010000 (  4.249844)
